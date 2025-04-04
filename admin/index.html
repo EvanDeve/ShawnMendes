@@ -6,9 +6,64 @@
     <title>Panel de Administración - Shawn Mendes Fan Club CR</title>
     <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+        /* Estilos para el botón de volver */
+        .back-to-site {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background-color: #f0d3bc;
+            color: #333;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-site:hover {
+            background-color: #333;
+            color: #f0d3bc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
+    <!-- Botón para volver a la página principal -->
+    <a href="/" class="back-to-site">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+        Volver al sitio
+    </a>
+
     <!-- Incluir el script para Netlify CMS -->
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
+    <script>
+        // Comprobar si el usuario está autenticado
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    // Si no hay usuario autenticado, mostrar el widget de inicio de sesión
+                    window.netlifyIdentity.on("login", () => {
+                        // Después de iniciar sesión, recargar la página para mostrar el CMS
+                        document.location.href = "/admin/";
+                    });
+                    window.netlifyIdentity.open();
+                }
+            });
+        }
+    </script>
 </body>
 </html> 
