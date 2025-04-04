@@ -32,6 +32,11 @@
                     <li><a href="#info">INFO</a></li>
                 </ul>
                 
+                <!-- Botón de admin para móvil -->
+                <div class="mobile-admin">
+                    <button id="mobile-login-button" class="admin-button"><i class="fas fa-lock"></i> Admin</button>
+                </div>
+                
                 <!-- Iconos sociales para móvil -->
                 <div class="mobile-social">
                     <a href="https://www.facebook.com/ShawnMendes" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -162,7 +167,7 @@
     <!-- Script para el login de administrador -->
     <script>
         // Función para manejar el inicio de sesión
-        document.getElementById('login-button').addEventListener('click', function() {
+        function handleAdminLogin() {
             // Abrir el widget de inicio de sesión de Netlify Identity
             if (window.netlifyIdentity) {
                 window.netlifyIdentity.open();
@@ -174,17 +179,25 @@
             } else {
                 alert('Error: No se pudo cargar el widget de inicio de sesión. Por favor, intenta más tarde.');
             }
-        });
+        }
+        
+        // Asignar evento al botón de administrador desktop
+        document.getElementById('login-button').addEventListener('click', handleAdminLogin);
+        
+        // Asignar evento al botón de administrador móvil
+        document.getElementById('mobile-login-button').addEventListener('click', handleAdminLogin);
         
         // Comprobar si el usuario ya está autenticado
         if (window.netlifyIdentity) {
             window.netlifyIdentity.on('init', function(user) {
                 if (user) {
-                    // Si el usuario ya está autenticado, cambiar el texto del botón
-                    var button = document.getElementById('login-button');
-                    button.innerHTML = '<i class="fas fa-user-check"></i> Panel';
-                    button.addEventListener('click', function() {
-                        window.location.href = '/admin/';
+                    // Si el usuario ya está autenticado, cambiar el texto de los botones
+                    var buttons = document.querySelectorAll('.admin-button');
+                    buttons.forEach(function(button) {
+                        button.innerHTML = '<i class="fas fa-user-check"></i> Panel';
+                        button.addEventListener('click', function() {
+                            window.location.href = '/admin/';
+                        });
                     });
                 }
             });
