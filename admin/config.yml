@@ -1,20 +1,6 @@
 backend:
   name: git-gateway
-  branch: main # Rama en la que se harán los cambios
-
-# URL del sitio (ayuda con las previsualizaciones y direcciones absolutas)
-site_url: https://shawn-mendes-cr.netlify.app
-display_url: https://shawn-mendes-cr.netlify.app
-
-# Personalización de la interfaz del CMS
-locale: 'es' # Idioma en español
-logo_url: /img/logo.png # Logo para el panel de administración
-show_preview_links: true # Mostrar enlaces de vista previa
-editor:
-  preview: true # Activar vista previa en el editor
-
-# Activar flujo editorial (Borradores, revisión, etc.)
-publish_mode: editorial_workflow
+  branch: main
 
 # Ruta donde se subirán los archivos multimedia
 media_folder: "img/uploads"
@@ -22,25 +8,17 @@ public_folder: "/img/uploads"
 
 # Colecciones - Define los diferentes tipos de contenido que se pueden editar
 collections:
-  - name: "eventos" # Nombre de la colección usado internamente
-    label: "Eventos" # Etiqueta visible en el panel de administración
-    folder: "_eventos" # Carpeta donde se guardarán los archivos
-    create: true # Permitir a los usuarios crear nuevas entradas
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Plantilla para nombres de archivo
-    summary: "{{title}} - {{date | date('DD/MM/YYYY')}}" # Formato de resumen en la lista
-    view_filters:
-      - label: "Eventos destacados"
-        field: featured
-        pattern: true
-      - label: "Próximos eventos"
-        field: date
-        pattern: ">=CURRENT_DATETIME"
-    fields: # Los campos que se mostrarán en el editor
+  - name: "eventos"
+    label: "Eventos"
+    folder: "_eventos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
       - {label: "Título", name: "title", widget: "string"}
-      - {label: "Fecha del Evento", name: "date", widget: "datetime", date_format: "DD/MM/YYYY", time_format: "HH:mm", format: "YYYY-MM-DD HH:mm"}
+      - {label: "Fecha del Evento", name: "date", widget: "datetime"}
       - {label: "Ubicación", name: "location", widget: "string"}
       - {label: "Descripción", name: "description", widget: "text"}
-      - {label: "Imagen", name: "image", widget: "image", required: false, media_library: {config: {max_file_size: 512000}}} # Limitar a 512KB
+      - {label: "Imagen", name: "image", widget: "image", required: false}
       - {label: "Enlace de Registro", name: "registrationLink", widget: "string", required: false}
       - {label: "Destacado", name: "featured", widget: "boolean", default: false}
       
@@ -56,7 +34,6 @@ collections:
           - label: "Redes Sociales"
             name: "socialMedia"
             widget: "list"
-            summary: "{{fields.platform}}"
             fields:
               - {label: "Plataforma", name: "platform", widget: "select", options: ["Facebook", "Instagram", "Twitter", "TikTok", "YouTube"]}
               - {label: "URL", name: "url", widget: "string"}

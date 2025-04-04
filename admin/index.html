@@ -52,76 +52,58 @@
             }
         }
         
-        /* Estilos adicionales para mejorar la visualización móvil del CMS */
+        /* Estilos básicos para móvil */
         body {
             overflow-x: hidden;
         }
         
-        /* Aplicar cuando se cargue el CMS */
-        #nc-root {
-            width: 100%;
-            overflow-x: hidden !important;
-        }
-        
+        /* Tamaño de fuente para inputs en móvil */
         @media (max-width: 799px) {
-            /* Mejorar visualización en móviles */
-            .css-1efy41v-AppHeaderContent, /* Ajustes para el encabezado */
-            .css-1hvrgvd-CollectionTopContainer-cardTop, /* Ajustes para contenedores */
-            .css-1yxzlhm-StyledListItemLink, /* Ajustes para enlaces */
-            .css-12b66la-AppHeaderContent-content, /* Contenido del encabezado */
-            .css-104dqk8-DirectButton-button-gray, /* Ajustes para botones */
-            .css-1b3n3dy-ToolbarContainer, /* Contenedor de la barra de herramientas */
-            .css-kxddlb-ToolbarSubSectionFirst-subsection, /* Subsecciones de la barra */
-            [class*="WidgetPreviewContainer"] /* Contenedores de previsualización */ {
-                max-width: 100% !important;
-                width: 100% !important;
-                margin-left: 0 !important;
-                margin-right: 0 !important;
-                padding-left: 10px !important;
-                padding-right: 10px !important;
-                box-sizing: border-box !important;
-                overflow-x: hidden !important;
-            }
-            
-            /* Ajustar el editor y los campos */
-            [class*="EditorContainer"] {
-                min-width: 0 !important;
-                width: 100% !important;
-                overflow-x: hidden !important;
-            }
-            
-            /* Ajustar la previsualización */
-            [class*="PreviewPaneContainer"] {
-                min-width: 0 !important;
-                width: 100% !important;
-                height: auto !important;
-                overflow-x: hidden !important;
-            }
-            
-            /* Ocultar elementos problemáticos en móvil */
-            .css-1vr2och-ToolbarSectionMain-toolbarSection:last-child {
-                display: none !important;
-            }
-            
-            /* Ajustar tamaño de fuente para input y textarea */
             input, textarea, select {
                 font-size: 16px !important; /* Evita zoom automático en iOS */
             }
-            
-            /* Ajustar ancho de entrada de texto */
-            .css-p5sjac-TextControl, /* Controles de texto */
-            .css-1ep7h8c-WidgetPreviewContainer, /* Contenedores de previsualización */
-            .css-1venkza-WidgetWrapper, /* Envoltorios de widgets */
-            .css-14h3nsr-WidgetPreviewContainer, /* Contenedores de previsualizaciones */
-            .css-jze063-WidgetWrapper { /* Envoltorios de widgets */
-                width: 100% !important;
-                box-sizing: border-box !important;
-                overflow-x: hidden !important;
+        }
+        
+        /* Estilos para mensaje de carga */
+        .loading-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f5f0;
+            z-index: 1000;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(208, 140, 100, 0.3);
+            border-radius: 50%;
+            border-top-color: #f0d3bc;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
             }
         }
     </style>
 </head>
 <body>
+    <!-- Mensaje de carga inicial -->
+    <div class="loading-message" id="loading-message">
+        <div class="loading-spinner"></div>
+        <p>Cargando panel de administración...</p>
+    </div>
+    
     <!-- Botón para volver a la página principal -->
     <a href="/" class="back-to-site">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -130,50 +112,39 @@
         Volver al sitio
     </a>
 
-    <!-- Script para ajustes adicionales del CMS en móvil -->
+    <!-- Script para cargar Netlify CMS -->
     <script>
-        // Agregar listener para cuando el DOM esté completamente cargado
+        // Función para verificar si estamos en un dispositivo móvil
+        function isMobile() {
+            return window.innerWidth <= 799;
+        }
+        
+        // Función para cargar el CMS con un retraso
+        function loadCMS() {
+            // Crear y agregar el script de Netlify CMS
+            var script = document.createElement('script');
+            script.src = 'https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js';
+            script.onload = function() {
+                // Ocultar el mensaje de carga cuando el CMS haya cargado
+                setTimeout(function() {
+                    var loadingMessage = document.getElementById('loading-message');
+                    if (loadingMessage) {
+                        loadingMessage.style.opacity = '0';
+                        loadingMessage.style.transition = 'opacity 0.5s ease';
+                        setTimeout(function() {
+                            loadingMessage.style.display = 'none';
+                        }, 500);
+                    }
+                }, 2000); // Esperar 2 segundos para que el CMS se inicialice completamente
+            };
+            document.body.appendChild(script);
+        }
+        
+        // Esperar a que el DOM esté completamente cargado
         document.addEventListener('DOMContentLoaded', function() {
-            // Intenta ajustar la visualización móvil después de que el CMS se haya cargado
-            function adjustMobileView() {
-                // Verificar si estamos en móvil
-                if (window.innerWidth <= 799) {
-                    // Retrasar para permitir que el CMS se cargue completamente
-                    setTimeout(function() {
-                        // Encontrar todos los contenedores de previsualización
-                        const previewContainers = document.querySelectorAll('[class*="PreviewPaneContainer"]');
-                        previewContainers.forEach(container => {
-                            container.style.width = '100%';
-                            container.style.minWidth = '0';
-                            container.style.overflowX = 'hidden';
-                        });
-                        
-                        // Ajustar contenedores del editor
-                        const editorContainers = document.querySelectorAll('[class*="EditorContainer"]');
-                        editorContainers.forEach(container => {
-                            container.style.width = '100%';
-                            container.style.minWidth = '0';
-                            container.style.overflowX = 'hidden';
-                        });
-                        
-                        // Establecer meta viewport dinámicamente
-                        const viewportMeta = document.querySelector('meta[name="viewport"]');
-                        if (viewportMeta) {
-                            viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0';
-                        }
-                    }, 1000);
-                }
-            }
-            
-            // Intenta ajustar cuando la ventana cambia de tamaño
-            window.addEventListener('resize', adjustMobileView);
-            
-            // Intenta ajustar inicialmente
-            adjustMobileView();
+            // Iniciar la carga del CMS con un pequeño retraso
+            setTimeout(loadCMS, 500);
         });
     </script>
-
-    <!-- Incluir el script para Netlify CMS -->
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </body>
 </html> 
