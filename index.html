@@ -22,6 +22,9 @@
                 <li><a href="#info">INFO</a></li>
             </ul>
             <div class="social-icons">
+                <div class="admin-login">
+                    <button id="login-button" class="admin-button"><i class="fas fa-lock"></i> Admin</button>
+                </div>
                 <a href="https://www.facebook.com/ShawnMendes" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/shawnmendes" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="https://www.tiktok.com/@shawnmendes" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
@@ -122,13 +125,32 @@
     <script src="script.js"></script>
     <script src="js/eventos.js"></script>
     
-    <!-- Script para redirigir al administrador después de iniciar sesión -->
+    <!-- Script para el login de administrador -->
     <script>
+        // Función para manejar el inicio de sesión
+        document.getElementById('login-button').addEventListener('click', function() {
+            // Abrir el widget de inicio de sesión de Netlify Identity
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.open();
+                
+                // Redirigir al panel de administración después de iniciar sesión
+                window.netlifyIdentity.on('login', function() {
+                    window.location.href = '/admin/';
+                });
+            } else {
+                alert('Error: No se pudo cargar el widget de inicio de sesión. Por favor, intenta más tarde.');
+            }
+        });
+        
+        // Comprobar si el usuario ya está autenticado
         if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/";
+            window.netlifyIdentity.on('init', function(user) {
+                if (user) {
+                    // Si el usuario ya está autenticado, cambiar el texto del botón
+                    var button = document.getElementById('login-button');
+                    button.innerHTML = '<i class="fas fa-user-check"></i> Panel';
+                    button.addEventListener('click', function() {
+                        window.location.href = '/admin/';
                     });
                 }
             });

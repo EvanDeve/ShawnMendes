@@ -1,3 +1,36 @@
+/* Estilos para el botón de administrador */
+.admin-login {
+    display: inline-flex;
+    margin-right: 15px;
+}
+
+.admin-button {
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.admin-button i {
+    font-size: 10px;
+}
+
+.admin-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #f0d3bc;
+    color: #f0d3bc;
+}
+
 /* Importar fuentes */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
