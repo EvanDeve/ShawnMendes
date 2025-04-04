@@ -2,16 +2,19 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "img/uploads"
-public_folder: "/img/uploads"
+# Ajustes básicos
+media_folder: img/uploads
+public_folder: /img/uploads
+publish_mode: simple
 
 collections:
-  - name: "eventos"
-    label: "Eventos"
-    folder: "_eventos"
+  - name: eventos
+    label: Eventos
+    folder: _eventos
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - {label: "Título", name: "title", widget: "string"}
-      - {label: "Fecha", name: "date", widget: "datetime"}
-      - {label: "Ubicación", name: "location", widget: "string"}
-      - {label: "Descripción", name: "description", widget: "text"} 
+      - {label: Título, name: title, widget: string}
+      - {label: Fecha, name: date, widget: datetime}
+      - {label: Ubicación, name: location, widget: string}
+      - {label: Descripción, name: description, widget: text} 
