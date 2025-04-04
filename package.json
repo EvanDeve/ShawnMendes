@@ -1,0 +1,14 @@
+{
+  "name": "shawn-mendes-costa-rica-fanpage",
+  "version": "1.0.0",
+  "description": "Sitio web oficial del fan club de Shawn Mendes en Costa Rica",
+  "scripts": {
+    "build": "node build-api.js",
+    "dev": "node build-api.js && npx serve"
+  },
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "gray-matter": "^4.0.3",
+    "serve": "^14.2.0"
+  }
+} 

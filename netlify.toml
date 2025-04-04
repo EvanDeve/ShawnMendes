@@ -1,0 +1,37 @@
+[build]
+  publish = "."
+  command = "npm run build"
+
+# Redirecciones para el CMS
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
+# Redirección para acceder al panel de administración
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+# Función para generar el API estático de eventos
+[functions]
+  directory = "functions"
+
+# Comandos postprocesamiento
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true 

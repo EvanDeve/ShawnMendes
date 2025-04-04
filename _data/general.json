@@ -1,0 +1,27 @@
+{
+  "siteName": "Shawn Mendes - Costa Rica Fan Club",
+  "siteDescription": "Somos el club oficial de fans de Shawn Mendes en Costa Rica. Organizamos eventos, compartimos noticias y conectamos a los fans en todo el país.",
+  "socialMedia": [
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/ShawnMendes"
+    },
+    {
+      "platform": "Instagram",
+      "url": "https://www.instagram.com/shawnmendes"
+    },
+    {
+      "platform": "Twitter",
+      "url": "https://twitter.com/ShawnMendes"
+    },
+    {
+      "platform": "TikTok",
+      "url": "https://www.tiktok.com/@shawnmendes"
+    },
+    {
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/channel/UCAvCL8hyXjpwfIUSmp7PJdg"
+    }
+  ],
+  "contactEmail": "contacto@shawnmendescr.com"
+} 
