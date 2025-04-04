@@ -2,39 +2,16 @@ backend:
   name: git-gateway
   branch: main
 
-# Ruta donde se subirán los archivos multimedia
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
 
-# Colecciones - Define los diferentes tipos de contenido que se pueden editar
 collections:
   - name: "eventos"
     label: "Eventos"
     folder: "_eventos"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "Título", name: "title", widget: "string"}
-      - {label: "Fecha del Evento", name: "date", widget: "datetime"}
+      - {label: "Fecha", name: "date", widget: "datetime"}
       - {label: "Ubicación", name: "location", widget: "string"}
-      - {label: "Descripción", name: "description", widget: "text"}
-      - {label: "Imagen", name: "image", widget: "image", required: false}
-      - {label: "Enlace de Registro", name: "registrationLink", widget: "string", required: false}
-      - {label: "Destacado", name: "featured", widget: "boolean", default: false}
-      
-  - name: "configuracion"
-    label: "Configuración"
-    files:
-      - label: "Información General"
-        name: "general"
-        file: "_data/general.json"
-        fields:
-          - {label: "Nombre del Sitio", name: "siteName", widget: "string"}
-          - {label: "Descripción del Sitio", name: "siteDescription", widget: "text"}
-          - label: "Redes Sociales"
-            name: "socialMedia"
-            widget: "list"
-            fields:
-              - {label: "Plataforma", name: "platform", widget: "select", options: ["Facebook", "Instagram", "Twitter", "TikTok", "YouTube"]}
-              - {label: "URL", name: "url", widget: "string"}
-          - {label: "Correo de Contacto", name: "contactEmail", widget: "string"} 
+      - {label: "Descripción", name: "description", widget: "text"} 

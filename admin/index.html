@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - Shawn Mendes Fan Club CR</title>
-    <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
-        /* Estilos para el botón de volver */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
         .back-to-site {
             position: fixed;
             bottom: 20px;
@@ -26,7 +31,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             transition: all 0.3s ease;
         }
         
@@ -37,7 +41,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         
-        /* Media queries para responsive */
         @media (max-width: 576px) {
             .back-to-site {
                 bottom: 15px;
@@ -51,100 +54,16 @@
                 height: 14px;
             }
         }
-        
-        /* Estilos básicos para móvil */
-        body {
-            overflow-x: hidden;
-        }
-        
-        /* Tamaño de fuente para inputs en móvil */
-        @media (max-width: 799px) {
-            input, textarea, select {
-                font-size: 16px !important; /* Evita zoom automático en iOS */
-            }
-        }
-        
-        /* Estilos para mensaje de carga */
-        .loading-message {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #f9f5f0;
-            z-index: 1000;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-        
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(208, 140, 100, 0.3);
-            border-radius: 50%;
-            border-top-color: #f0d3bc;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Mensaje de carga inicial -->
-    <div class="loading-message" id="loading-message">
-        <div class="loading-spinner"></div>
-        <p>Cargando panel de administración...</p>
-    </div>
-    
-    <!-- Botón para volver a la página principal -->
     <a href="/" class="back-to-site">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
             <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
         </svg>
         Volver al sitio
     </a>
-
-    <!-- Script para cargar Netlify CMS -->
-    <script>
-        // Función para verificar si estamos en un dispositivo móvil
-        function isMobile() {
-            return window.innerWidth <= 799;
-        }
-        
-        // Función para cargar el CMS con un retraso
-        function loadCMS() {
-            // Crear y agregar el script de Netlify CMS
-            var script = document.createElement('script');
-            script.src = 'https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js';
-            script.onload = function() {
-                // Ocultar el mensaje de carga cuando el CMS haya cargado
-                setTimeout(function() {
-                    var loadingMessage = document.getElementById('loading-message');
-                    if (loadingMessage) {
-                        loadingMessage.style.opacity = '0';
-                        loadingMessage.style.transition = 'opacity 0.5s ease';
-                        setTimeout(function() {
-                            loadingMessage.style.display = 'none';
-                        }, 500);
-                    }
-                }, 2000); // Esperar 2 segundos para que el CMS se inicialice completamente
-            };
-            document.body.appendChild(script);
-        }
-        
-        // Esperar a que el DOM esté completamente cargado
-        document.addEventListener('DOMContentLoaded', function() {
-            // Iniciar la carga del CMS con un pequeño retraso
-            setTimeout(loadCMS, 500);
-        });
-    </script>
+    
+    <script src="https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
 </body>
 </html> 
