@@ -64,21 +64,5 @@
 
     <!-- Incluir el script para Netlify CMS -->
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-
-    <script>
-        // Comprobar si el usuario está autenticado
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    // Si no hay usuario autenticado, mostrar el widget de inicio de sesión
-                    window.netlifyIdentity.on("login", () => {
-                        // Después de iniciar sesión, recargar la página para mostrar el CMS
-                        document.location.href = "/admin/";
-                    });
-                    window.netlifyIdentity.open();
-                }
-            });
-        }
-    </script>
 </body>
 </html> 

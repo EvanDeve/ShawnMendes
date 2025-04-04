@@ -1,15 +1,8 @@
 backend:
   name: git-gateway
-  branch: main # Rama en la que se harán los cambios (usa 'master' si es tu rama principal)
+  branch: main # Rama en la que se harán los cambios
 
-# Configuración de la interfaz del CMS
-site_url: /
-logo_url: /img/logo.png
-display_url: https://shawnmendescr.netlify.app
-locale: 'es'
-
-# Personalización de la interfaz de usuario
-publish_mode: editorial_workflow
+# Ruta donde se subirán los archivos multimedia
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
 

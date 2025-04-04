@@ -126,6 +126,32 @@ nav {
     left: 50%;
     transform: translateX(-50%);
     justify-content: center;
+    z-index: 10;
+}
+
+.desktop-menu {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: center;
+    z-index: 10;
+    list-style: none;
+}
+
+.desktop-social {
+    display: flex;
+}
+
+.menu-container .menu {
+    display: none;
+    position: static;
+    transform: none;
+    left: auto;
+}
+
+.mobile-social {
+    display: none;
 }
 
 .menu li {
@@ -166,6 +192,8 @@ nav {
     align-items: center;
     flex: 1;
     justify-content: flex-end;
+    position: relative;
+    z-index: 11;
 }
 
 .social-icons a {
@@ -192,7 +220,7 @@ nav {
 /* Sección Hero */
 .hero {
     height: 100vh;
-    background-image: var(--hero-gradient), url('img/f92bc12fa4a2095a3091e693d498cd3a.jpg');
+    background-image: var(--hero-gradient), url('img/hero-bg.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -581,6 +609,48 @@ footer::before {
 }
 
 @media (max-width: 768px) {
+    /* Ocultar menú desktop en móvil */
+    .desktop-menu {
+        display: none;
+    }
+    
+    /* Mostrar menú móvil */
+    .menu-container .menu {
+        display: flex;
+    }
+    
+    /* Ocultar iconos sociales desktop en móvil */
+    .desktop-social {
+        display: none;
+    }
+    
+    /* Mostrar iconos sociales móvil */
+    .mobile-social {
+        display: flex;
+        margin-top: 30px;
+        justify-content: center;
+    }
+    
+    .mobile-social a {
+        margin: 0 10px;
+        color: white;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .mobile-social a:hover {
+        color: #fff;
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+    }
+    
     /* Menú hamburguesa para móvil */
     .menu-toggle {
         display: block;
@@ -668,16 +738,6 @@ footer::before {
         display: flex;
         justify-content: center;
         width: 100%;
-    }
-    
-    .mobile-social {
-        display: flex;
-        margin-top: 30px;
-        justify-content: center;
-    }
-    
-    .mobile-social a {
-        margin: 0 10px;
     }
     
     header .social-icons {
@@ -917,4 +977,218 @@ footer::before {
 
 .welcome-close:hover {
     background-color: var(--secondary-color);
+}
+
+/* Estilos para menús desktop y móvil */
+.desktop-menu {
+    display: flex;
+}
+
+.desktop-social {
+    display: flex;
+}
+
+.menu-container .menu {
+    display: none;
+}
+
+.mobile-social {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Ocultar menú desktop en móvil */
+    .desktop-menu {
+        display: none;
+    }
+    
+    /* Mostrar menú móvil */
+    .menu-container .menu {
+        display: flex;
+    }
+    
+    /* Ocultar iconos sociales desktop en móvil */
+    .desktop-social {
+        display: none;
+    }
+    
+    /* Mostrar iconos sociales móvil */
+    .mobile-social {
+        display: flex;
+        margin-top: 30px;
+        justify-content: center;
+    }
+    
+    .mobile-social a {
+        margin: 0 10px;
+        color: white;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .mobile-social a:hover {
+        color: #fff;
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+    }
+    
+    /* Menú hamburguesa para móvil */
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 1002;
+        width: 30px;
+        height: 21px;
+    }
+    
+    .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: white;
+        margin-bottom: 6px;
+        transition: all 0.3s ease;
+        border-radius: 3px;
+    }
+    
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+    
+    nav {
+        position: relative;
+    }
+    
+    .menu-container {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 80px 30px 30px;
+        transition: right 0.4s ease;
+        z-index: 1001;
+        overflow-y: auto;
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .menu-container.active {
+        right: 0;
+    }
+    
+    .menu {
+        position: static;
+        transform: none;
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        align-items: flex-start;
+    }
+    
+    .menu li {
+        width: 100%;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .menu a {
+        display: block;
+        padding: 15px 0;
+        font-size: 16px;
+    }
+    
+    .logo, .social-icons {
+        flex: none;
+    }
+    
+    .logo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    header .social-icons {
+        display: none;
+    }
+    
+    /* Overlay */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+    }
+    
+    .menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* Otras adaptaciones para tablet */
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.5rem;
+        letter-spacing: 5px;
+    }
+    
+    .about h2, .events h2 {
+        font-size: 2rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        border-radius: 0;
+    }
+    
+    .about-content {
+        padding: 25px 20px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    /* Ajustar el mensaje de bienvenida */
+    .welcome-message {
+        left: 50%;
+        right: auto;
+        transform: translate(-50%, 20px);
+        max-width: 90%;
+        width: 330px;
+    }
+    
+    .welcome-message.visible {
+        transform: translate(-50%, 0);
+    }
 } 

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Referencias a elementos del DOM
     const header = document.querySelector('header');
     const menuLinks = document.querySelectorAll('.menu a');
+    const desktopMenuLinks = document.querySelectorAll('.desktop-menu a');
     const sections = document.querySelectorAll('section');
     const galleryItems = document.querySelectorAll('.gallery-item');
     const menuToggle = document.querySelector('.menu-toggle');
@@ -54,7 +55,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const sectionId = section.getAttribute('id');
             
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                // Activar en menú mobile
                 menuLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // Activar en menú desktop
+                desktopMenuLinks.forEach(link => {
                     link.classList.remove('active');
                     if (link.getAttribute('href') === `#${sectionId}`) {
                         link.classList.add('active');
@@ -89,6 +99,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // Llamar a handleScroll inicialmente para configurar el estado correcto
     handleScroll();
     
+    // Función para navegación suave
+    function smoothScroll(targetId) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            // Animación suave con easing
+            const startPosition = window.pageYOffset;
+            const targetPosition = targetElement.offsetTop - 70;
+            const distance = targetPosition - startPosition;
+            const duration = 1000;
+            let start = null;
+            
+            function animation(currentTime) {
+                if (start === null) start = currentTime;
+                const timeElapsed = currentTime - start;
+                const run = ease(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+            
+            // Función de easing (suavizado)
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+            
+            requestAnimationFrame(animation);
+        }
+    }
+    
     // Navegación suave al hacer clic en los enlaces del menú
     menuLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -96,33 +137,19 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const targetId = this.getAttribute('href');
             if (targetId.startsWith('#')) {
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Animación suave con easing
-                    const startPosition = window.pageYOffset;
-                    const targetPosition = targetElement.offsetTop - 70;
-                    const distance = targetPosition - startPosition;
-                    const duration = 1000;
-                    let start = null;
-                    
-                    function animation(currentTime) {
-                        if (start === null) start = currentTime;
-                        const timeElapsed = currentTime - start;
-                        const run = ease(timeElapsed, startPosition, distance, duration);
-                        window.scrollTo(0, run);
-                        if (timeElapsed < duration) requestAnimationFrame(animation);
-                    }
-                    
-                    // Función de easing (suavizado)
-                    function ease(t, b, c, d) {
-                        t /= d / 2;
-                        if (t < 1) return c / 2 * t * t + b;
-                        t--;
-                        return -c / 2 * (t * (t - 2) - 1) + b;
-                    }
-                    
-                    requestAnimationFrame(animation);
-                }
+                smoothScroll(targetId);
+            }
+        });
+    });
+    
+    // Navegación suave para menú desktop
+    desktopMenuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                smoothScroll(targetId);
             }
         });
     });
